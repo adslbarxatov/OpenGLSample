@@ -11,21 +11,21 @@
 #include <gl\gl.h>			// Procedure declarations, constant definitions and macros
 							// for the OpenGL component
 #include <gl\glu.h>			// ~ for the OpenGL Utility Library
-#include "glaux.h"			// ~ for the OpenGL Auxiliary (вспомогательной) Library
+#include "glaux\\glaux.h"	// ~ for the OpenGL Auxiliary (вспомогательной) Library
 
 ////////////////////////////////////////////
 // Подключение статических библиотек
 #pragma comment (lib, "opengl32.lib")
-#pragma comment (lib, "glaux.lib")
+#pragma comment (lib, "glaux\\glaux.lib")
 #pragma comment (lib, "glu32.lib")
 
 ////////////////////////////////////////////
 // Параметры окна
-#define	WX0		10						// Позиция и размеры окна
+#define	WX0		10					// Позиция и размеры окна
 #define	WY0		10
 #define	WXM		960
 #define	WYM		540
-#define WTITLE	" Программа «маховик»"	// Заголовок
+#define WTITLE	" Time-turner"		// Заголовок
 
 ////////////////////////////////////////////
 // Общие параметры модели
@@ -63,6 +63,7 @@
 
 ////////////////////////////////////////////
 // Общие прототипы
+void BuildProjection ();				// Функция формирования комнаты
 void CALLBACK MouseMove		(AUX_EVENTREC *event);	// Функция обработки мыши
 void CALLBACK Key_LEFT		(void);					// Функции обработки клавиатуры
 void CALLBACK Key_RIGHT		(void);
@@ -82,7 +83,7 @@ double Angle (double Increment);		// Функция передачи текущ�
 ////////////////////////////////////////////
 // Прототипы текущей реализации
 void CALLBACK Resize (int width, int height);	// Функция пересчёта изображения при изменении размера окна
-void CALLBACK Display (void);					// Главная функция изображения
+void CALLBACK Display (void);					// Главная функция формирования изображения
 void ReLight (void);							// Функция пересчёта позиций осветителей
-void Ring (GLUquadricObj *QO, double Rd,
-		   double Wdth, double Hgh, int Gr);	// Функция изображения кольца
+void Ring (GLUquadricObj *QO, double Radius,
+	double Width, double Height, int Resolution);	// Функция изображения кольца

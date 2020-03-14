@@ -8,29 +8,41 @@ double alpha = 0, beta = 0,		// Углы поворота пространств
 	currentAngle = 0,			// Текущий угол вращения
 	angleIncrement = 2 * STEP;	// Смещение угла вращения
 
+// Отображение проекции
+void BuildProjection ()
+	{
+	glMatrixMode	(GL_PROJECTION);			// Режим проекции
+	glLoadIdentity	();							// Очистка матрицы преобразования
+
+	glFrustum		(-ROOM_DIM_A, ROOM_DIM_A, -ROOM_DIM_B, ROOM_DIM_B, 1.0, ROOM_DEEP);		// Инициализация комнаты
+
+	gluLookAt		(0.0, 0.0, deep,			// Установка точки и направления наблюдения: расположение глаз
+					 0.0, 0.0, 0.0,				// центр комнаты
+					 0.0, 1.0, 0.0);			// направление взгляда
+	glMatrixMode	(GL_MODELVIEW);				// Режим проекции
+	}
+
 // Изменение размера окна
 void CALLBACK Resize (int Width, int Height)
 	{
 	glViewport		(0, 0, Width, Height);		// Размеры поля видимости окна
-	glMatrixMode	(GL_PROJECTION);
-	glLoadIdentity	();							// Очистка матрицы преобразования
 
-	glFrustum		(-ROOM_DIM_A, ROOM_DIM_A, -ROOM_DIM_B, ROOM_DIM_B, 1.0, ROOM_DEEP);
-
-	gluLookAt		(0.0, 0.0, deep,			// Позиция наблюдения (берём сверху)
-					 0.0, 0.0, 0.0,				// Направление
-					 0.0, 1.0, 0.0);			// 1 = направление верха
-	glMatrixMode	(GL_MODELVIEW);
+	BuildProjection ();
 	}    
 
 // Обработка мыши
 void CALLBACK MouseMove (AUX_EVENTREC *event)
 	{
+	if (mouseY0 != -10000)
+		{
+		Alpha ((mouseX0 - event->data[AUX_MOUSEX]) / 2);
+		Beta ((mouseY0 - event->data[AUX_MOUSEY]) / 2);
+		}
+
 	mouseX0 = event->data[AUX_MOUSEX];
 	mouseY0 = event->data[AUX_MOUSEY];
-
-//	Alpha (mouseY0);
-//	Beta (mouseY0);
+	//	Alpha (mouseY0);
+	//	Beta (mouseY0);
 	}
 
 // Обработка клавиатуры
@@ -57,29 +69,15 @@ void CALLBACK Key_DOWN (void)
 void CALLBACK Key_ZoomOut (void)
 	{
 	Deep (5 * STEP);
-	glMatrixMode	(GL_PROJECTION);
-	glLoadIdentity	();
 
-	glFrustum		(-ROOM_DIM_A, ROOM_DIM_A, -ROOM_DIM_B, ROOM_DIM_B, 1.0, ROOM_DEEP);
-
-	gluLookAt		(0.0, 0.0, Deep (0),
-					 0.0, 0.0, 0.0,
-					 0.0, 1.0, 0.0);
-	glMatrixMode	(GL_MODELVIEW);
+	BuildProjection ();
 	}
 
 void CALLBACK Key_ZoomIn (void)
 	{
 	Deep (-5 * STEP);
-	glMatrixMode	(GL_PROJECTION);
-	glLoadIdentity	();
 
-	glFrustum		(-ROOM_DIM_A, ROOM_DIM_A, -ROOM_DIM_B, ROOM_DIM_B, 1.0, ROOM_DEEP);
-
-	gluLookAt		(0.0, 0.0, Deep (0),
-					 0.0, 0.0, 0.0,
-					 0.0, 1.0, 0.0);
-	glMatrixMode	(GL_MODELVIEW);
+	BuildProjection ();
 	}
 
 void CALLBACK Key_SpeedUp (void)
