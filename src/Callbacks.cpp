@@ -1,29 +1,29 @@
-// Îáùàÿ áèáëèîòåêà
+// ÐžÐ±Ñ‰Ð°Ñ Ð±Ð¸Ð±Ð»Ð¸Ð¾Ñ‚ÐµÐºÐ°
 #include "OpenGLSample.h"
 
-// Ãëîáàëüíûå ïåðåìåííûå
-int mouseX0, mouseY0 = -10000;	// Ïîñëåäíèå ñìåùåíèÿ ìûøè
-double alpha = 0, beta = 0,		// Óãëû ïîâîðîòà ïðîñòðàíñòâà
-	deep = STARTUP_DEEP,		// Îòäàëåíèå îò öåíòðà
-	currentAngle = 0,			// Òåêóùèé óãîë âðàùåíèÿ
-	angleIncrement = 2 * STEP;	// Ñìåùåíèå óãëà âðàùåíèÿ
+// Ð“Ð»Ð¾Ð±Ð°Ð»ÑŒÐ½Ñ‹Ðµ Ð¿ÐµÑ€ÐµÐ¼ÐµÐ½Ð½Ñ‹Ðµ
+int mouseX0, mouseY0 = -10000;	// ÐŸÐ¾ÑÐ»ÐµÐ´Ð½Ð¸Ðµ ÑÐ¼ÐµÑ‰ÐµÐ½Ð¸Ñ Ð¼Ñ‹ÑˆÐ¸
+double alpha = 0, beta = 0,		// Ð£Ð³Ð»Ñ‹ Ð¿Ð¾Ð²Ð¾Ñ€Ð¾Ñ‚Ð° Ð¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÑ‚Ð²Ð°
+	deep = STARTUP_DEEP,		// ÐžÑ‚Ð´Ð°Ð»ÐµÐ½Ð¸Ðµ Ð¾Ñ‚ Ñ†ÐµÐ½Ñ‚Ñ€Ð°
+	currentAngle = 0,			// Ð¢ÐµÐºÑƒÑ‰Ð¸Ð¹ ÑƒÐ³Ð¾Ð» Ð²Ñ€Ð°Ñ‰ÐµÐ½Ð¸Ñ
+	angleIncrement = 2 * STEP;	// Ð¡Ð¼ÐµÑ‰ÐµÐ½Ð¸Ðµ ÑƒÐ³Ð»Ð° Ð²Ñ€Ð°Ñ‰ÐµÐ½Ð¸Ñ
 
-// Èçìåíåíèå ðàçìåðà îêíà
+// Ð˜Ð·Ð¼ÐµÐ½ÐµÐ½Ð¸Ðµ Ñ€Ð°Ð·Ð¼ÐµÑ€Ð° Ð¾ÐºÐ½Ð°
 void CALLBACK Resize (int Width, int Height)
 	{
-	glViewport		(0, 0, Width, Height);		// Ðàçìåðû ïîëÿ âèäèìîñòè îêíà
+	glViewport		(0, 0, Width, Height);		// Ð Ð°Ð·Ð¼ÐµÑ€Ñ‹ Ð¿Ð¾Ð»Ñ Ð²Ð¸Ð´Ð¸Ð¼Ð¾ÑÑ‚Ð¸ Ð¾ÐºÐ½Ð°
 	glMatrixMode	(GL_PROJECTION);
-	glLoadIdentity	();							// Î÷èñòêà ìàòðèöû ïðåîáðàçîâàíèÿ
+	glLoadIdentity	();							// ÐžÑ‡Ð¸ÑÑ‚ÐºÐ° Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹ Ð¿Ñ€ÐµÐ¾Ð±Ñ€Ð°Ð·Ð¾Ð²Ð°Ð½Ð¸Ñ
 
 	glFrustum		(-ROOM_DIM_A, ROOM_DIM_A, -ROOM_DIM_B, ROOM_DIM_B, 1.0, ROOM_DEEP);
 
-	gluLookAt		(0.0, 0.0, deep,			// Ïîçèöèÿ íàáëþäåíèÿ (áåð¸ì ñâåðõó)
-					 0.0, 0.0, 0.0,				// Íàïðàâëåíèå
-					 0.0, 1.0, 0.0);			// 1 = íàïðàâëåíèå âåðõà
+	gluLookAt		(0.0, 0.0, deep,			// ÐŸÐ¾Ð·Ð¸Ñ†Ð¸Ñ Ð½Ð°Ð±Ð»ÑŽÐ´ÐµÐ½Ð¸Ñ (Ð±ÐµÑ€Ñ‘Ð¼ ÑÐ²ÐµÑ€Ñ…Ñƒ)
+					 0.0, 0.0, 0.0,				// ÐÐ°Ð¿Ñ€Ð°Ð²Ð»ÐµÐ½Ð¸Ðµ
+					 0.0, 1.0, 0.0);			// 1 = Ð½Ð°Ð¿Ñ€Ð°Ð²Ð»ÐµÐ½Ð¸Ðµ Ð²ÐµÑ€Ñ…Ð°
 	glMatrixMode	(GL_MODELVIEW);
 	}    
 
-// Îáðàáîòêà ìûøè
+// ÐžÐ±Ñ€Ð°Ð±Ð¾Ñ‚ÐºÐ° Ð¼Ñ‹ÑˆÐ¸
 void CALLBACK MouseMove (AUX_EVENTREC *event)
 	{
 	mouseX0 = event->data[AUX_MOUSEX];
@@ -33,7 +33,7 @@ void CALLBACK MouseMove (AUX_EVENTREC *event)
 //	Beta (mouseY0);
 	}
 
-// Îáðàáîòêà êëàâèàòóðû
+// ÐžÐ±Ñ€Ð°Ð±Ð¾Ñ‚ÐºÐ° ÐºÐ»Ð°Ð²Ð¸Ð°Ñ‚ÑƒÑ€Ñ‹
 void CALLBACK Key_LEFT (void)
 	{
 	Alpha (-ALPHABETA_INC_MULT * STEP);
@@ -92,7 +92,7 @@ void CALLBACK Key_SpeedDown (void)
 	Speed (-STEP);
 	}
 
-// Ìåòîäû, èçìåíÿþùèå ãëîáàëüíûå ïàðàìåòðû ìîäåëè
+// ÐœÐµÑ‚Ð¾Ð´Ñ‹, Ð¸Ð·Ð¼ÐµÐ½ÑÑŽÑ‰Ð¸Ðµ Ð³Ð»Ð¾Ð±Ð°Ð»ÑŒÐ½Ñ‹Ðµ Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ñ‹ Ð¼Ð¾Ð´ÐµÐ»Ð¸
 double Alpha (double Increment)
 	{
 	alpha += Increment;
@@ -111,7 +111,7 @@ double Deep (double Increment)
 	{
 	deep += Increment;
 
-	// Çàöèêëèâàíèå ïðîñòðàíñòâà
+	// Ð—Ð°Ñ†Ð¸ÐºÐ»Ð¸Ð²Ð°Ð½Ð¸Ðµ Ð¿Ñ€Ð¾ÑÑ‚Ñ€Ð°Ð½ÑÑ‚Ð²Ð°
 	if (deep > MAXDEEP)
 		deep = 0.0;
 	if (deep < 0.0)

@@ -1,19 +1,19 @@
-// Общая библиотека
+// РћР±С‰Р°СЏ Р±РёР±Р»РёРѕС‚РµРєР°
 #include "OpenGLSample.h"
 
-// Указатели на текстуру и на её объект
+// РЈРєР°Р·Р°С‚РµР»Рё РЅР° С‚РµРєСЃС‚СѓСЂСѓ Рё РЅР° РµС‘ РѕР±СЉРµРєС‚
 GLUquadricObj *QObj;
 
-// Пусковая консольная функция
+// РџСѓСЃРєРѕРІР°СЏ РєРѕРЅСЃРѕР»СЊРЅР°СЏ С„СѓРЅРєС†РёСЏ
 void main (void)
 	{
-	// Матрицы освещения (координаты: влево-вправо (x), вверх-вниз (y), вперёд-назад (z))
-	GLfloat	Mat_AmDf[] = {0.0f, 0.0f, 0.0f, 1.0f},	// Матрица света и диффузии
-			Mat_Spec[] = {1.0f, 1.0f, 1.0f, 1.0f},	// Матрица зеркальности
-			Mat_Emis[] = {0.0f, 0.0f, 0.0f, 1.0f},	// Матрица внутреннего света
-			Shin = 75.0;							// Блеск ([0; 128]; чем меньше, тем ярче
+	// РњР°С‚СЂРёС†С‹ РѕСЃРІРµС‰РµРЅРёСЏ (РєРѕРѕСЂРґРёРЅР°С‚С‹: РІР»РµРІРѕ-РІРїСЂР°РІРѕ (x), РІРІРµСЂС…-РІРЅРёР· (y), РІРїРµСЂС‘Рґ-РЅР°Р·Р°Рґ (z))
+	GLfloat	Mat_AmDf[] = {0.0f, 0.0f, 0.0f, 1.0f},	// РњР°С‚СЂРёС†Р° СЃРІРµС‚Р° Рё РґРёС„С„СѓР·РёРё
+			Mat_Spec[] = {1.0f, 1.0f, 1.0f, 1.0f},	// РњР°С‚СЂРёС†Р° Р·РµСЂРєР°Р»СЊРЅРѕСЃС‚Рё
+			Mat_Emis[] = {0.0f, 0.0f, 0.0f, 1.0f},	// РњР°С‚СЂРёС†Р° РІРЅСѓС‚СЂРµРЅРЅРµРіРѕ СЃРІРµС‚Р°
+			Shin = 75.0;							// Р‘Р»РµСЃРє ([0; 128]; С‡РµРј РјРµРЅСЊС€Рµ, С‚РµРј СЏСЂС‡Рµ
 
-	// Выдача справки по клавиатуре
+	// Р’С‹РґР°С‡Р° СЃРїСЂР°РІРєРё РїРѕ РєР»Р°РІРёР°С‚СѓСЂРµ
 	printf ("\n Keyboard usage:\n");
 	printf ("  \x18\x19\x1A\x1B  - model roration;\n");
 	printf ("  1 / 2 - model zoom in / out;\n");
@@ -23,28 +23,28 @@ void main (void)
 	printf ("\n\n Press any key to continue...");
 	_getch ();
 
-	// Инициализация окна
-	auxInitPosition			(WX0, WY0, WXM, WYM);				// Стартовая позиция окна
-	auxInitDisplayMode		(AUX_RGB | AUX_DEPTH | AUX_DOUBLE);	// Формат окна
-	auxInitWindow			(WTITLE);							// Заголовок окна
+	// РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РѕРєРЅР°
+	auxInitPosition			(WX0, WY0, WXM, WYM);				// РЎС‚Р°СЂС‚РѕРІР°СЏ РїРѕР·РёС†РёСЏ РѕРєРЅР°
+	auxInitDisplayMode		(AUX_RGB | AUX_DEPTH | AUX_DOUBLE);	// Р¤РѕСЂРјР°С‚ РѕРєРЅР°
+	auxInitWindow			(WTITLE);							// Р—Р°РіРѕР»РѕРІРѕРє РѕРєРЅР°
 
-	// Функции отображения
-	auxIdleFunc				(Display);							// Отображение
-	auxReshapeFunc			(Resize);							// Изменение размеров окна
+	// Р¤СѓРЅРєС†РёРё РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ
+	auxIdleFunc				(Display);							// РћС‚РѕР±СЂР°Р¶РµРЅРёРµ
+	auxReshapeFunc			(Resize);							// РР·РјРµРЅРµРЅРёРµ СЂР°Р·РјРµСЂРѕРІ РѕРєРЅР°
 
-	// Главный осветитель и включение дополнительных прожекторов
-	glEnable				(GL_LIGHTING);						// Включение режима освещения
-	glEnable				(GL_LIGHT0);						// Номер осветителя
-	glEnable				(GL_DEPTH_TEST);					// Включение света
+	// Р“Р»Р°РІРЅС‹Р№ РѕСЃРІРµС‚РёС‚РµР»СЊ Рё РІРєР»СЋС‡РµРЅРёРµ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹С… РїСЂРѕР¶РµРєС‚РѕСЂРѕРІ
+	glEnable				(GL_LIGHTING);						// Р’РєР»СЋС‡РµРЅРёРµ СЂРµР¶РёРјР° РѕСЃРІРµС‰РµРЅРёСЏ
+	glEnable				(GL_LIGHT0);						// РќРѕРјРµСЂ РѕСЃРІРµС‚РёС‚РµР»СЏ
+	glEnable				(GL_DEPTH_TEST);					// Р’РєР»СЋС‡РµРЅРёРµ СЃРІРµС‚Р°
 
-	// Параметры материала
+	// РџР°СЂР°РјРµС‚СЂС‹ РјР°С‚РµСЂРёР°Р»Р°
 	glMaterialfv			(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, Mat_AmDf);
 	glMaterialfv			(GL_FRONT_AND_BACK, GL_SPECULAR, Mat_Spec);
-	glMaterialfv			(GL_FRONT_AND_BACK, GL_EMISSION, Mat_Emis);	// Внутренний свет
+	glMaterialfv			(GL_FRONT_AND_BACK, GL_EMISSION, Mat_Emis);	// Р’РЅСѓС‚СЂРµРЅРЅРёР№ СЃРІРµС‚
 	glMaterialf				(GL_FRONT_AND_BACK, GL_SHININESS, Shin);
-	glEnable				(GL_COLOR_MATERIAL);			// Включение цвета материала
+	glEnable				(GL_COLOR_MATERIAL);			// Р’РєР»СЋС‡РµРЅРёРµ С†РІРµС‚Р° РјР°С‚РµСЂРёР°Р»Р°
 
-	// Функции обработки клавиш (описаны в BaseFunctions)
+	// Р¤СѓРЅРєС†РёРё РѕР±СЂР°Р±РѕС‚РєРё РєР»Р°РІРёС€ (РѕРїРёСЃР°РЅС‹ РІ BaseFunctions)
 	auxKeyFunc			(AUX_LEFT, Key_LEFT);
 	auxKeyFunc			(AUX_RIGHT, Key_RIGHT);
 	auxKeyFunc			(AUX_UP, Key_UP);
@@ -54,38 +54,38 @@ void main (void)
 	auxKeyFunc			('4', Key_SpeedUp);
 	auxKeyFunc			('5', Key_SpeedDown);
 
-	// Функция обработки мыши
+	// Р¤СѓРЅРєС†РёСЏ РѕР±СЂР°Р±РѕС‚РєРё РјС‹С€Рё
 	auxMouseFunc		(AUX_LEFTBUTTON, AUX_MOUSELOC, MouseMove);
 
-	// Освещение
+	// РћСЃРІРµС‰РµРЅРёРµ
 	ReLight				();
 
-	// Функция рисования (цикл)
+	// Р¤СѓРЅРєС†РёСЏ СЂРёСЃРѕРІР°РЅРёСЏ (С†РёРєР»)
 	auxMainLoop			(Display);
 	}
 
-// Главная функция отображения
+// Р“Р»Р°РІРЅР°СЏ С„СѓРЅРєС†РёСЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ
 void CALLBACK Display (void)
 	{
-	// Вращение
+	// Р’СЂР°С‰РµРЅРёРµ
 	Angle (Speed (0));
 
-	// Очистка экрана
+	// РћС‡РёСЃС‚РєР° СЌРєСЂР°РЅР°
 	glClear				(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glClearColor		(BACKGROUND_COLOR, 0.0f);		// Цвет фона
+	glClearColor		(BACKGROUND_COLOR, 0.0f);		// Р¦РІРµС‚ С„РѕРЅР°
 	glPushMatrix		();
 
-	// Направления вращения и исходная позиция
+	// РќР°РїСЂР°РІР»РµРЅРёСЏ РІСЂР°С‰РµРЅРёСЏ Рё РёСЃС…РѕРґРЅР°СЏ РїРѕР·РёС†РёСЏ
 	glRotated			(Alpha (0), 0, 1, 0);
 	glRotated			(Beta (0), 0, 0, 1);
 	glRotated			(45, 0, -1, 0);
 
-	// Подключение и наложение цвета
+	// РџРѕРґРєР»СЋС‡РµРЅРёРµ Рё РЅР°Р»РѕР¶РµРЅРёРµ С†РІРµС‚Р°
 	QObj = gluNewQuadric	(); 
 	gluQuadricDrawStyle		(QObj, GLU_FILL); 
 
 	////////////////////////////////
-	// С-образные опоры
+	// РЎ-РѕР±СЂР°Р·РЅС‹Рµ РѕРїРѕСЂС‹
 	glColor3d			(FRAMES_COLOR);
 	glTranslated		(0.0, 0.0, -RING_HEIGHT);
 		glRotated			(180, 1, 0, 0);
@@ -101,7 +101,7 @@ void CALLBACK Display (void)
 		gluPartialDisk		(QObj, RADIUS1 + 1.0, RADIUS1 + 2.0, RESOLUTION, RESOLUTION, 135, 180);
 	glTranslated		(0.0, 0.0, -RING_HEIGHT);
 
-	// Держатели внешнего кольца
+	// Р”РµСЂР¶Р°С‚РµР»Рё РІРЅРµС€РЅРµРіРѕ РєРѕР»СЊС†Р°
 	glRotated			(45, 0, 0, 1);
 	glTranslated		(0.0, (RADIUS1 + 1.5), 0.0);
 	auxSolidBox			(1.0, 1.0, 2 * RING_HEIGHT);
@@ -110,7 +110,7 @@ void CALLBACK Display (void)
 	glTranslated		(0.0, (RADIUS1 + 1.5), 0.0);
 	glRotated			(45, 0, 0, -1);
 
-	// Площадка
+	// РџР»РѕС‰Р°РґРєР°
 	glTranslated		(0.0, -(RADIUS1 + 2.0), 0.0);
 	auxSolidBox			(2.0, 2.0, 2 * RING_HEIGHT);
 
@@ -120,7 +120,7 @@ void CALLBACK Display (void)
 	glTranslated		(0.0, (RADIUS1 + 3.0), 0.0);
 
 	////////////////////////////////
-	// Внешнее кольцо
+	// Р’РЅРµС€РЅРµРµ РєРѕР»СЊС†Рѕ
 	glColor3d			(RING1_COLOR);
 
 	glRotated			(45, 0, 0, 1);
@@ -134,17 +134,17 @@ void CALLBACK Display (void)
 		glRotated			(90, -1, 0, 0);
 	glTranslated		(0, RADIUS1, 0);
 	
-	// Начало внешнего вращения
+	// РќР°С‡Р°Р»Рѕ РІРЅРµС€РЅРµРіРѕ РІСЂР°С‰РµРЅРёСЏ
 	glRotated			(RING1_ANGLE_OFFSET * Angle (0), 0, 1, 0);
 
-	// Внешнее кольцо
+	// Р’РЅРµС€РЅРµРµ РєРѕР»СЊС†Рѕ
 	Ring				(QObj, RADIUS1, RING_WIDTH, RING_HEIGHT, RESOLUTION);
 
-	// Возврат внешней опоры
+	// Р’РѕР·РІСЂР°С‚ РІРЅРµС€РЅРµР№ РѕРїРѕСЂС‹
 	glRotated			(45, 0, 0, -1);
 
 	////////////////////////////////
-	// Средняя опора
+	// РЎСЂРµРґРЅСЏСЏ РѕРїРѕСЂР°
 	glColor3d			(RING2_COLOR);
 
 	glRotated			(-45, 0, 0, 1);
@@ -158,18 +158,18 @@ void CALLBACK Display (void)
 		glRotated			(90, -1, 0, 0);
 	glTranslated		(0, RADIUS2 - RING_WIDTH, 0);
 
-	// Начало внутреннего вращения
+	// РќР°С‡Р°Р»Рѕ РІРЅСѓС‚СЂРµРЅРЅРµРіРѕ РІСЂР°С‰РµРЅРёСЏ
 	glRotated			(RING2_ANGLE_OFFSET * Angle (0), 0, 1, 0);
-	// Какой-нибудь неточный коэффициент (для эффекта случайности)
+	// РљР°РєРѕР№-РЅРёР±СѓРґСЊ РЅРµС‚РѕС‡РЅС‹Р№ РєРѕСЌС„С„РёС†РёРµРЅС‚ (РґР»СЏ СЌС„С„РµРєС‚Р° СЃР»СѓС‡Р°Р№РЅРѕСЃС‚Рё)
 
-	// Кольцо
+	// РљРѕР»СЊС†Рѕ
 	Ring				(QObj, RADIUS2, RING_WIDTH, RING_HEIGHT, RESOLUTION);
 
-	// Возврат опоры
+	// Р’РѕР·РІСЂР°С‚ РѕРїРѕСЂС‹
 	glRotated			(-45, 0, 0, -1);
 
 	////////////////////////////////
-	// Внутренняя опора
+	// Р’РЅСѓС‚СЂРµРЅРЅСЏСЏ РѕРїРѕСЂР°
 	glColor3d			(RING3_COLOR);
 
 	glRotated			(45, 0, 0, 1);
@@ -183,72 +183,72 @@ void CALLBACK Display (void)
 		glRotated			(90, -1, 0, 0);
 	glTranslated		(0, RADIUS3 - RING_WIDTH, 0);
 
-	// Начало внутреннего вращения
+	// РќР°С‡Р°Р»Рѕ РІРЅСѓС‚СЂРµРЅРЅРµРіРѕ РІСЂР°С‰РµРЅРёСЏ
 	glRotated			(RING3_ANGLE_OFFSET * Angle (0), 0, 1, 0);
 
-	// Внутреннее кольцо
+	// Р’РЅСѓС‚СЂРµРЅРЅРµРµ РєРѕР»СЊС†Рѕ
 	Ring				(QObj, RADIUS3, RING_WIDTH, RING_HEIGHT, RESOLUTION);
 
-	// Возврат внутренней опоры
+	// Р’РѕР·РІСЂР°С‚ РІРЅСѓС‚СЂРµРЅРЅРµР№ РѕРїРѕСЂС‹
 	glRotated			(45, 0, 0, -1);
 
 	////////////////////////////////
-	// Конец внутреннего вращения
+	// РљРѕРЅРµС† РІРЅСѓС‚СЂРµРЅРЅРµРіРѕ РІСЂР°С‰РµРЅРёСЏ
 	glRotated			(RING3_ANGLE_OFFSET * Angle (0), 0, -1, 0);
 
 	////////////////////////////////
-	// Конец среднего вращения
+	// РљРѕРЅРµС† СЃСЂРµРґРЅРµРіРѕ РІСЂР°С‰РµРЅРёСЏ
 	glRotated			(RING2_ANGLE_OFFSET * Angle (0), 0, -1, 0);
 
 	////////////////////////////////
-	// Конец внешнего вращения
+	// РљРѕРЅРµС† РІРЅРµС€РЅРµРіРѕ РІСЂР°С‰РµРЅРёСЏ
 	glRotated			(RING1_ANGLE_OFFSET * Angle (0), 0, -1, 0);
 
-	// Завершение
+	// Р—Р°РІРµСЂС€РµРЅРёРµ
 	glFlush				();
 	gluDeleteQuadric	(QObj);
 	glPopMatrix			();
 	auxSwapBuffers		();
 	}
 
-// Функция пересчёта позиций осветителей
+// Р¤СѓРЅРєС†РёСЏ РїРµСЂРµСЃС‡С‘С‚Р° РїРѕР·РёС†РёР№ РѕСЃРІРµС‚РёС‚РµР»РµР№
 void ReLight (void)
 	{
-	// Матрицы освещения (координаты: влево-вправо (x), вверх-вниз (y), вперёд-назад (z))
-	// Позиции осветителей
+	// РњР°С‚СЂРёС†С‹ РѕСЃРІРµС‰РµРЅРёСЏ (РєРѕРѕСЂРґРёРЅР°С‚С‹: РІР»РµРІРѕ-РІРїСЂР°РІРѕ (x), РІРІРµСЂС…-РІРЅРёР· (y), РІРїРµСЂС‘Рґ-РЅР°Р·Р°Рґ (z))
+	// РџРѕР·РёС†РёРё РѕСЃРІРµС‚РёС‚РµР»РµР№
 	GLfloat	Pos[4] = {5.0, 5.0, 5.0f};
 
-	// Их направление
+	// РС… РЅР°РїСЂР°РІР»РµРЅРёРµ
 	GLfloat	Dir[3] = {-1.0, -1.0, -1.0f};
 
-	// Матрицы света и цвета
-	GLfloat	Mat_Amb[4] = {1.0f, 1.0f, 1.0f, 1.0f};				// Свет
+	// РњР°С‚СЂРёС†С‹ СЃРІРµС‚Р° Рё С†РІРµС‚Р°
+	GLfloat	Mat_Amb[4] = {1.0f, 1.0f, 1.0f, 1.0f};				// РЎРІРµС‚
 	
-	// Углы прожекторов
+	// РЈРіР»С‹ РїСЂРѕР¶РµРєС‚РѕСЂРѕРІ
 	GLfloat CArc = 30.0;
 
-	glLightfv		(GL_LIGHT0, GL_POSITION, Pos);				// Позиция
-	glLightfv		(GL_LIGHT0, GL_SPOT_DIRECTION, Dir);		// Направление
-	glLightfv		(GL_LIGHT0, GL_AMBIENT, Mat_Amb);			// Цвет осветителя
-	glLightfv		(GL_LIGHT0, GL_SPECULAR, Mat_Amb);			// Блеск
-	glLightf		(GL_LIGHT0, GL_LINEAR_ATTENUATION, 1.5);	// Ослабление
+	glLightfv		(GL_LIGHT0, GL_POSITION, Pos);				// РџРѕР·РёС†РёСЏ
+	glLightfv		(GL_LIGHT0, GL_SPOT_DIRECTION, Dir);		// РќР°РїСЂР°РІР»РµРЅРёРµ
+	glLightfv		(GL_LIGHT0, GL_AMBIENT, Mat_Amb);			// Р¦РІРµС‚ РѕСЃРІРµС‚РёС‚РµР»СЏ
+	glLightfv		(GL_LIGHT0, GL_SPECULAR, Mat_Amb);			// Р‘Р»РµСЃРє
+	glLightf		(GL_LIGHT0, GL_LINEAR_ATTENUATION, 1.5);	// РћСЃР»Р°Р±Р»РµРЅРёРµ
 	}
 
-// Функция изображения кольца
+// Р¤СѓРЅРєС†РёСЏ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ РєРѕР»СЊС†Р°
 void Ring (GLUquadricObj *QO, double Radius, double Width, double Height, int Resolution)
 	{
-	// Верхняя крышка
-	glTranslated		(0.0, 0.0, Height / 2);			// Задание точки отображения
+	// Р’РµСЂС…РЅСЏСЏ РєСЂС‹С€РєР°
+	glTranslated		(0.0, 0.0, Height / 2);			// Р—Р°РґР°РЅРёРµ С‚РѕС‡РєРё РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ
 	gluDisk				(QO, Radius - Width, Radius, Resolution, Resolution);
 
-	// Нижняя крышка
+	// РќРёР¶РЅСЏСЏ РєСЂС‹С€РєР°
 	glTranslated		(0.0, 0.0, -Height);
 	glRotated			(180, 1, 0, 0);
 	gluDisk				(QO, Radius - Width, Radius, Resolution, Resolution);
 	glRotated			(180, -1, 0, 0);
 	glTranslated		(0.0, 0.0, Height / 2);
 
-	// Цилиндры
+	// Р¦РёР»РёРЅРґСЂС‹
 	glTranslated		(0.0, 0.0, -Height / 2);
 	gluCylinder			(QO, Radius, Radius, Height, Resolution, Resolution);
 	gluCylinder			(QO, Radius - Width, Radius - Width, Height, Resolution, Resolution);

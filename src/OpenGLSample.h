@@ -1,54 +1,54 @@
 ////////////////////////////////////////////
-// Библиотека глобальных определений
+// Р‘РёР±Р»РёРѕС‚РµРєР° РіР»РѕР±Р°Р»СЊРЅС‹С… РѕРїСЂРµРґРµР»РµРЅРёР№
 
 ////////////////////////////////////////////
-// Подключение заголовочных файлов
-#include <stdio.h>			// Главная библиотека IO
-#include <conio.h>			// Для getch
-#include <windows.h>		// Библиотека для создания окна
-#include <math.h>			// Математические функции
+// РџРѕРґРєР»СЋС‡РµРЅРёРµ Р·Р°РіРѕР»РѕРІРѕС‡РЅС‹С… С„Р°Р№Р»РѕРІ
+#include <stdio.h>			// Р“Р»Р°РІРЅР°СЏ Р±РёР±Р»РёРѕС‚РµРєР° IO
+#include <conio.h>			// Р”Р»СЏ getch
+#include <windows.h>		// Р‘РёР±Р»РёРѕС‚РµРєР° РґР»СЏ СЃРѕР·РґР°РЅРёСЏ РѕРєРЅР°
+#include <math.h>			// РњР°С‚РµРјР°С‚РёС‡РµСЃРєРёРµ С„СѓРЅРєС†РёРё
 
 #include <gl\gl.h>			// Procedure declarations, constant definitions and macros
 							// for the OpenGL component
 #include <gl\glu.h>			// ~ for the OpenGL Utility Library
-#include "glaux.h"			// ~ for the OpenGL Auxiliary (вспомогательной) Library
+#include "glaux.h"			// ~ for the OpenGL Auxiliary (РІСЃРїРѕРјРѕРіР°С‚РµР»СЊРЅРѕР№) Library
 
 ////////////////////////////////////////////
-// Подключение статических библиотек
+// РџРѕРґРєР»СЋС‡РµРЅРёРµ СЃС‚Р°С‚РёС‡РµСЃРєРёС… Р±РёР±Р»РёРѕС‚РµРє
 #pragma comment (lib, "opengl32.lib")
 #pragma comment (lib, "glaux.lib")
 #pragma comment (lib, "glu32.lib")
 
 ////////////////////////////////////////////
-// Параметры окна
-#define	WX0		10						// Позиция и размеры окна
+// РџР°СЂР°РјРµС‚СЂС‹ РѕРєРЅР°
+#define	WX0		10						// РџРѕР·РёС†РёСЏ Рё СЂР°Р·РјРµСЂС‹ РѕРєРЅР°
 #define	WY0		10
 #define	WXM		960
 #define	WYM		540
-#define WTITLE	" Программа «маховик»"	// Заголовок
+#define WTITLE	" РџСЂРѕРіСЂР°РјРјР° В«РјР°С…РѕРІРёРєВ»"	// Р—Р°РіРѕР»РѕРІРѕРє
 
 ////////////////////////////////////////////
-// Общие параметры модели
-#define	MAXSPEED		0.5			// Максимальная скорость вращения
-#define MAXDEEP			16.0		// Максимальное удаление от центра
+// РћР±С‰РёРµ РїР°СЂР°РјРµС‚СЂС‹ РјРѕРґРµР»Рё
+#define	MAXSPEED		0.5			// РњР°РєСЃРёРјР°Р»СЊРЅР°СЏ СЃРєРѕСЂРѕСЃС‚СЊ РІСЂР°С‰РµРЅРёСЏ
+#define MAXDEEP			16.0		// РњР°РєСЃРёРјР°Р»СЊРЅРѕРµ СѓРґР°Р»РµРЅРёРµ РѕС‚ С†РµРЅС‚СЂР°
 #define STARTUP_DEEP	10.0
-#define	STEP			0.02f		// Шаг смещения / приближения / изменения скорости
+#define	STEP			0.02f		// РЁР°Рі СЃРјРµС‰РµРЅРёСЏ / РїСЂРёР±Р»РёР¶РµРЅРёСЏ / РёР·РјРµРЅРµРЅРёСЏ СЃРєРѕСЂРѕСЃС‚Рё
 
-#define ROOM_DIM_A		1.77		// Размеры «комнаты» (от центра до края)
+#define ROOM_DIM_A		1.77		// Р Р°Р·РјРµСЂС‹ В«РєРѕРјРЅР°С‚С‹В» (РѕС‚ С†РµРЅС‚СЂР° РґРѕ РєСЂР°СЏ)
 #define ROOM_DIM_B		1.0
 #define ROOM_DEEP		24.0
 
-#define ALPHABETA_INC_MULT	50		// Множитель инкремента для коллбэков клавиш-стрелок
+#define ALPHABETA_INC_MULT	50		// РњРЅРѕР¶РёС‚РµР»СЊ РёРЅРєСЂРµРјРµРЅС‚Р° РґР»СЏ РєРѕР»Р»Р±СЌРєРѕРІ РєР»Р°РІРёС€-СЃС‚СЂРµР»РѕРє
 
 ////////////////////////////////////////////
-// Общие параметры колец
-#define RESOLUTION	48				// Разбиение краёв кольца (гладкость)
+// РћР±С‰РёРµ РїР°СЂР°РјРµС‚СЂС‹ РєРѕР»РµС†
+#define RESOLUTION	48				// Р Р°Р·Р±РёРµРЅРёРµ РєСЂР°С‘РІ РєРѕР»СЊС†Р° (РіР»Р°РґРєРѕСЃС‚СЊ)
 
-#define RADIUS1		4.0f			// Радиусы колец
+#define RADIUS1		4.0f			// Р Р°РґРёСѓСЃС‹ РєРѕР»РµС†
 #define RADIUS2		3.2f
 #define RADIUS3		2.4f
-#define	RING_HEIGHT	0.4f			// Толщина колец
-#define	RING_WIDTH	0.6f			// Ширина колец
+#define	RING_HEIGHT	0.4f			// РўРѕР»С‰РёРЅР° РєРѕР»РµС†
+#define	RING_WIDTH	0.6f			// РЁРёСЂРёРЅР° РєРѕР»РµС†
 
 #define BACKGROUND_COLOR	0.10f,0.00f,0.20f
 #define FRAMES_COLOR		0.35,0.35,0.35
@@ -62,9 +62,9 @@
 #define RING3_ANGLE_OFFSET	1.67
 
 ////////////////////////////////////////////
-// Общие прототипы
-void CALLBACK MouseMove		(AUX_EVENTREC *event);	// Функция обработки мыши
-void CALLBACK Key_LEFT		(void);					// Функции обработки клавиатуры
+// РћР±С‰РёРµ РїСЂРѕС‚РѕС‚РёРїС‹
+void CALLBACK MouseMove		(AUX_EVENTREC *event);	// Р¤СѓРЅРєС†РёСЏ РѕР±СЂР°Р±РѕС‚РєРё РјС‹С€Рё
+void CALLBACK Key_LEFT		(void);					// Р¤СѓРЅРєС†РёРё РѕР±СЂР°Р±РѕС‚РєРё РєР»Р°РІРёР°С‚СѓСЂС‹
 void CALLBACK Key_RIGHT		(void);
 void CALLBACK Key_UP		(void);
 void CALLBACK Key_DOWN		(void);
@@ -73,16 +73,16 @@ void CALLBACK Key_ZoomIn	(void);
 void CALLBACK Key_SpeedUp	(void);
 void CALLBACK Key_SpeedDown	(void);
 
-double Alpha (double Increment);		// Функции передачи поворотов
+double Alpha (double Increment);		// Р¤СѓРЅРєС†РёРё РїРµСЂРµРґР°С‡Рё РїРѕРІРѕСЂРѕС‚РѕРІ
 double Beta (double Increment);
-double Deep (double Increment);			// Функция передачи глубины
-double Speed (double Increment);		// Функция передачи скорости
-double Angle (double Increment);		// Функция передачи текущего угла вращения
+double Deep (double Increment);			// Р¤СѓРЅРєС†РёСЏ РїРµСЂРµРґР°С‡Рё РіР»СѓР±РёРЅС‹
+double Speed (double Increment);		// Р¤СѓРЅРєС†РёСЏ РїРµСЂРµРґР°С‡Рё СЃРєРѕСЂРѕСЃС‚Рё
+double Angle (double Increment);		// Р¤СѓРЅРєС†РёСЏ РїРµСЂРµРґР°С‡Рё С‚РµРєСѓС‰РµРіРѕ СѓРіР»Р° РІСЂР°С‰РµРЅРёСЏ
 
 ////////////////////////////////////////////
-// Прототипы текущей реализации
-void CALLBACK Resize (int width, int height);	// Функция пересчёта изображения при изменении размера окна
-void CALLBACK Display (void);					// Главная функция изображения
-void ReLight (void);							// Функция пересчёта позиций осветителей
+// РџСЂРѕС‚РѕС‚РёРїС‹ С‚РµРєСѓС‰РµР№ СЂРµР°Р»РёР·Р°С†РёРё
+void CALLBACK Resize (int width, int height);	// Р¤СѓРЅРєС†РёСЏ РїРµСЂРµСЃС‡С‘С‚Р° РёР·РѕР±СЂР°Р¶РµРЅРёСЏ РїСЂРё РёР·РјРµРЅРµРЅРёРё СЂР°Р·РјРµСЂР° РѕРєРЅР°
+void CALLBACK Display (void);					// Р“Р»Р°РІРЅР°СЏ С„СѓРЅРєС†РёСЏ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ
+void ReLight (void);							// Р¤СѓРЅРєС†РёСЏ РїРµСЂРµСЃС‡С‘С‚Р° РїРѕР·РёС†РёР№ РѕСЃРІРµС‚РёС‚РµР»РµР№
 void Ring (GLUquadricObj *QO, double Rd,
-		   double Wdth, double Hgh, int Gr);	// Функция изображения кольца
+		   double Wdth, double Hgh, int Gr);	// Р¤СѓРЅРєС†РёСЏ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ РєРѕР»СЊС†Р°
