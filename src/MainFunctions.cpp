@@ -7,11 +7,12 @@ GLUquadricObj *QObj;
 // Пусковая консольная функция
 void main (void)
 	{
-	// Матрицы освещения (координаты: влево-вправо (x), вверх-вниз (y), вперёд-назад (z))
+	// Матрицы материала
 	GLfloat	Mat_AmDf[] = {0.0f, 0.0f, 0.0f, 1.0f},		// Матрица света и диффузии
 			Mat_Spec[] = {1.0f, 1.0f, 1.0f, 1.0f},		// Матрица зеркальности
 			Mat_Emis[] = {0.0f, 0.0f, 0.0f, 1.0f},		// Матрица внутреннего света
 			Shin = 75.0;								// Блеск ([0; 128]; чем меньше, тем ярче
+	// Матрицы освещения
 	GLfloat	Pos[4] = {5.0, 5.0, 5.0f},					// Позиции осветителей
 			Dir[3] = {-1.0, -1.0, -1.0f},				// Их направление
 			Amb_Color[4] = {1.0f, 1.0f, 1.0f, 1.0f},	// Цвет освещения
@@ -89,8 +90,8 @@ void CALLBACK Display (void)
 	glRotated			(45, 0, -1, 0);
 
 	// Подключение и наложение цвета
-	QObj = gluNewQuadric	(); 
-	gluQuadricDrawStyle		(QObj, GLU_FILL); 
+	QObj = gluNewQuadric	();
+	gluQuadricDrawStyle		(QObj, GLU_FILL);
 
 	////////////////////////////////
 	// С-образные опоры
@@ -98,16 +99,20 @@ void CALLBACK Display (void)
 	glTranslated		(0.0, 0.0, -RING_HEIGHT);
 		glRotated			(180, 1, 0, 0);
 		gluPartialDisk		(QObj, RADIUS1 + 1.0, RADIUS1 + 2.0, RESOLUTION, RESOLUTION, 225, 180);
-		glRotated			(180, -1, 0, 0);
-	glTranslated		(0.0, 0.0, RING_HEIGHT - 0.01);
-		gluPartialDisk		(QObj, RADIUS1 + 1.0, RADIUS1 + 2.0, RESOLUTION, RESOLUTION, 135, 180);
-	glTranslated		(0.0, 0.0, 0.02);
-		glRotated			(180, 1, 0, 0);
+	glTranslated		(0.0, 0.0, -(RING_HEIGHT + 0.01));	// Отрицательное смещение из-за разворота
+		gluPartialDisk		(QObj, RADIUS1 + 1.0, RADIUS1 + 2.0, RESOLUTION, RESOLUTION, 225, 180);
+	glTranslated		(0.0, 0.0, -RING_HEIGHT);	// Отрицательное смещение из-за разворота
 		gluPartialDisk		(QObj, RADIUS1 + 1.0, RADIUS1 + 2.0, RESOLUTION, RESOLUTION, 225, 180);
 		glRotated			(180, -1, 0, 0);
-	glTranslated		(0.0, 0.0, RING_HEIGHT - 0.01);
+
+	glTranslated		(0.0, 0.0, 0.01);
+		gluPartialDisk		(QObj, RADIUS1 + 1.0, RADIUS1 + 2.0, RESOLUTION, RESOLUTION, 135, 180);
+	glTranslated		(0.0, 0.0, -RING_HEIGHT + 0.01);
 		gluPartialDisk		(QObj, RADIUS1 + 1.0, RADIUS1 + 2.0, RESOLUTION, RESOLUTION, 135, 180);
 	glTranslated		(0.0, 0.0, -RING_HEIGHT);
+		gluPartialDisk		(QObj, RADIUS1 + 1.0, RADIUS1 + 2.0, RESOLUTION, RESOLUTION, 135, 180);
+
+	glTranslated		(0.0, 0.0, RING_HEIGHT - 0.01);
 
 	// Держатели внешнего кольца
 	glRotated			(45, 0, 0, 1);
@@ -118,7 +123,7 @@ void CALLBACK Display (void)
 	glTranslated		(0.0, (RADIUS1 + 1.5), 0.0);
 	glRotated			(45, 0, 0, -1);
 
-	// Площадка
+	// Опора и площадка
 	glTranslated		(0.0, -(RADIUS1 + 2.0), 0.0);
 	auxSolidBox			(2.0, 2.0, 2 * RING_HEIGHT);
 
