@@ -58,8 +58,8 @@
 #define RING3_COLOR			0.30,0.30,0.35
 
 #define RING1_ANGLE_OFFSET	1.00
-#define RING2_ANGLE_OFFSET	1.37
-#define RING3_ANGLE_OFFSET	1.67
+#define RING2_ANGLE_OFFSET	-1.67
+#define RING3_ANGLE_OFFSET	1.37
 
 ////////////////////////////////////////////
 // Общие прототипы
@@ -84,6 +84,5 @@ double Angle (double Increment);		// Функция передачи текущ�
 // Прототипы текущей реализации
 void CALLBACK Resize (int width, int height);	// Функция пересчёта изображения при изменении размера окна
 void CALLBACK Display (void);					// Главная функция формирования изображения
-void ReLight (void);							// Функция пересчёта позиций осветителей
 void Ring (GLUquadricObj *QO, double Radius,
 	double Width, double Height, int Resolution);	// Функция изображения кольца

@@ -1,18 +1,22 @@
 // Общая библиотека
 #include "OpenGLSample.h"
 
-// Указатели на текстуру и на её объект
+// Указатель на 3D-объект
 GLUquadricObj *QObj;
 
 // Пусковая консольная функция
 void main (void)
 	{
 	// Матрицы освещения (координаты: влево-вправо (x), вверх-вниз (y), вперёд-назад (z))
-	GLfloat	Mat_AmDf[] = {0.0f, 0.0f, 0.0f, 1.0f},	// Матрица света и диффузии
-			Mat_Spec[] = {1.0f, 1.0f, 1.0f, 1.0f},	// Матрица зеркальности
-			Mat_Emis[] = {0.0f, 0.0f, 0.0f, 1.0f},	// Матрица внутреннего света
-			Shin = 75.0;							// Блеск ([0; 128]; чем меньше, тем ярче
-
+	GLfloat	Mat_AmDf[] = {0.0f, 0.0f, 0.0f, 1.0f},		// Матрица света и диффузии
+			Mat_Spec[] = {1.0f, 1.0f, 1.0f, 1.0f},		// Матрица зеркальности
+			Mat_Emis[] = {0.0f, 0.0f, 0.0f, 1.0f},		// Матрица внутреннего света
+			Shin = 75.0;								// Блеск ([0; 128]; чем меньше, тем ярче
+	GLfloat	Pos[4] = {5.0, 5.0, 5.0f},					// Позиции осветителей
+			Dir[3] = {-1.0, -1.0, -1.0f},				// Их направление
+			Amb_Color[4] = {1.0f, 1.0f, 1.0f, 1.0f},	// Цвет освещения
+			Attn = 1.5f;								// Ослабление
+	
 	// Выдача справки по клавиатуре
 	printf ("\n Keyboard usage:\n");
 	printf ("  \x18\x19\x1A\x1B  - model roration;\n");
@@ -44,6 +48,13 @@ void main (void)
 	glMaterialf				(GL_FRONT_AND_BACK, GL_SHININESS, Shin);
 	glEnable				(GL_COLOR_MATERIAL);			// Включение цвета материала
 
+	// Параметры осветителя
+	glLightfv				(GL_LIGHT0, GL_POSITION, Pos);				// Позиция
+	glLightfv				(GL_LIGHT0, GL_SPOT_DIRECTION, Dir);		// Направление
+	glLightfv				(GL_LIGHT0, GL_AMBIENT, Amb_Color);			// Цвет осветителя
+	glLightfv				(GL_LIGHT0, GL_SPECULAR, Amb_Color);		// Блеск
+	glLightf				(GL_LIGHT0, GL_LINEAR_ATTENUATION, Attn);	// Ослабление
+
 	// Функции обработки клавиш (описаны в BaseFunctions)
 	auxKeyFunc			(AUX_LEFT, Key_LEFT);
 	auxKeyFunc			(AUX_RIGHT, Key_RIGHT);
@@ -56,9 +67,6 @@ void main (void)
 
 	// Функция обработки мыши
 	auxMouseFunc		(AUX_LEFTBUTTON, AUX_MOUSELOC, MouseMove);
-
-	// Освещение
-	ReLight				();
 
 	// Функция рисования (цикл)
 	auxMainLoop			(Display);
@@ -209,29 +217,6 @@ void CALLBACK Display (void)
 	gluDeleteQuadric	(QObj);
 	glPopMatrix			();
 	auxSwapBuffers		();
-	}
-
-// Функция пересчёта позиций осветителей
-void ReLight (void)
-	{
-	// Матрицы освещения (координаты: влево-вправо (x), вверх-вниз (y), вперёд-назад (z))
-	// Позиции осветителей
-	GLfloat	Pos[4] = {5.0, 5.0, 5.0f};
-
-	// Их направление
-	GLfloat	Dir[3] = {-1.0, -1.0, -1.0f};
-
-	// Матрицы света и цвета
-	GLfloat	Mat_Amb[4] = {1.0f, 1.0f, 1.0f, 1.0f};				// Свет
-	
-	// Углы прожекторов
-	GLfloat CArc = 30.0;
-
-	glLightfv		(GL_LIGHT0, GL_POSITION, Pos);				// Позиция
-	glLightfv		(GL_LIGHT0, GL_SPOT_DIRECTION, Dir);		// Направление
-	glLightfv		(GL_LIGHT0, GL_AMBIENT, Mat_Amb);			// Цвет осветителя
-	glLightfv		(GL_LIGHT0, GL_SPECULAR, Mat_Amb);			// Блеск
-	glLightf		(GL_LIGHT0, GL_LINEAR_ATTENUATION, 1.5);	// Ослабление
 	}
 
 // Функция изображения кольца

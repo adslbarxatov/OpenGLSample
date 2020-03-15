@@ -1,3 +1,7 @@
 *.rc
-*.sln
+*.s*
 *.exe
+Release
+ipch
+*.user
+*sdf
