@@ -86,7 +86,7 @@ void CALLBACK Display (void)
 
 	// Направления вращения и исходная позиция
 	glRotated			(Alpha (0), 0, 1, 0);
-	glRotated			(Beta (0), 0, 0, 1);
+	glRotated			(Beta (0), 1, 0, 0);
 	glRotated			(45, 0, -1, 0);
 
 	// Подключение и наложение цвета

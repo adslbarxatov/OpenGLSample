@@ -2,7 +2,6 @@
 #include "OpenGLSample.h"
 
 // Глобальные переменные
-int mouseX0, mouseY0 = -10000;	// Последние смещения мыши
 double alpha = 0, beta = 0,		// Углы поворота пространства
 	deep = STARTUP_DEEP,		// Отдаление от центра
 	currentAngle = 0,			// Текущий угол вращения
@@ -34,16 +33,8 @@ void CALLBACK Resize (int Width, int Height)
 // Обработка мыши
 void CALLBACK MouseMove (AUX_EVENTREC *event)
 	{
-	if (mouseY0 != -10000)
-		{
-		Alpha ((mouseX0 - event->data[AUX_MOUSEX]) / 2);
-		Beta ((mouseY0 - event->data[AUX_MOUSEY]) / 2);
-		}
-
-	mouseX0 = event->data[AUX_MOUSEX];
-	mouseY0 = event->data[AUX_MOUSEY];
-	//	Alpha (mouseY0);
-	//	Beta (mouseY0);
+	alpha = event->data[AUX_MOUSEX] - WXM / 2;
+	beta = event->data[AUX_MOUSEY] - WYM / 2;
 	}
 
 // Обработка клавиатуры
