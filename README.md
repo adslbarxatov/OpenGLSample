@@ -13,6 +13,7 @@ Sample application for learning OpenGL
 This code is used to create an educational application for OpenGL that demonstrates launch and initialization of a 3D environment, the formation of a rendering scene, the setting of lighting and materials, etc. It is considered on the example of the training task “the flywheel of time”
 
 
+
 ## Development policy and EULA / Политика разработки и EULA
 
 This [Policy (ADP)](https://vk.com/@rdaaow_fupl-adp), its positions, conclusion, EULA and application methods
