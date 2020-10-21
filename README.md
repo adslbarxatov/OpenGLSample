@@ -1,8 +1,10 @@
 ﻿# OpenGLSample
 
+
 Sample application for learning OpenGL
 
 Учебное приложение для изучения OpenGL
+
 
 #
 
@@ -11,6 +13,8 @@ Sample application for learning OpenGL
 #
 
 This code is used to create an educational application for OpenGL that demonstrates launch and initialization of a 3D environment, the formation of a rendering scene, the setting of lighting and materials, etc. It is considered on the example of the training task “the flywheel of time”
+
+&nbsp;
 
 
 
@@ -21,6 +25,8 @@ describes general rules that we follow in all of our development processes, rele
 ideas.
 **It must be acquainted by participants and users before using any of laboratory's products.
 By downloading them, you agree to this Policy**
+
+#
 
 Данная [Политика (ADP)](https://vk.com/@rdaaow_fupl-adp), её положения, заключение, EULA и способы применения
 описывают общие правила, которым мы следуем во всех наших процессах разработки, вышедших в релиз приложениях
