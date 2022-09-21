@@ -8,17 +8,21 @@ Sample application for learning OpenGL
 
 #
 
-Этот код используется для создания учебного приложения под OpenGL, демонстрирующего запуск и инициализацию 3D-среды, формирование сцены отрисовки, настройку освещения и материалов и т.д. Рассматривается на примере учебной задачи «маховик времени»
+Этот код используется для создания учебного приложения под OpenGL, демонстрирующего запуск и инициализацию 3D-среды,
+формирование сцены отрисовки, настройку освещения и материалов и т.д. Рассматривается на примере учебной задачи
+«маховик времени»
 
 #
 
-This code is used to create an educational application for OpenGL that demonstrates launch and initialization of a 3D environment, the formation of a rendering scene, the setting of lighting and materials, etc. It is considered on the example of the training task “the flywheel of time”
+This code is used to create an educational application for OpenGL that demonstrates launch and initialization
+of a 3D environment, the formation of a rendering scene, the setting of lighting and materials, etc.
+It is considered on the example of the training task “the flywheel of time”
 
 &nbsp;
 
 
 
-## [Development policy and EULA / Политика разработки и EULA](https://adslbarxatov.github.io/ADP)
+## [Development policy and EULA](https://adslbarxatov.github.io/ADP) / [Политика разработки и EULA](https://adslbarxatov.github.io/ADP/ru)
 
 This Policy (ADP), its positions, conclusion, EULA and application methods
 describes general rules that we follow in all of our development processes, released applications and implemented ideas.
