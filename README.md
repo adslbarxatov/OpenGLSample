@@ -1,4 +1,4 @@
-﻿# OpenGLSample
+# OpenGLSample
 
 
 Sample application for learning OpenGL
@@ -10,13 +10,17 @@ Sample application for learning OpenGL
 
 Этот код используется для создания учебного приложения под OpenGL, демонстрирующего запуск и инициализацию 3D-среды,
 формирование сцены отрисовки, настройку освещения и материалов и т.д. Рассматривается на примере учебной задачи
-«маховик времени»
+«маховик времени».
+
+:warning: ***Этот репозиторий больше не будет получать обновления***
 
 #
 
 This code is used to create an educational application for OpenGL that demonstrates launch and initialization
 of a 3D environment, the formation of a rendering scene, the setting of lighting and materials, etc.
-It is considered on the example of the training task “the flywheel of time”
+It is considered on the example of the training task “the flywheel of time”.
+
+:warning: ***This repository will no longer receive updates***
 
 &nbsp;
 
